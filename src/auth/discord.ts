@@ -1,15 +1,21 @@
 /**
  * Discord login for Hack Club Nagpur.
  *
- * SETUP:
- *  1. Discord app already created — client ID is below.
- *  2. In the Discord Developer Portal → OAuth2 → Redirects, make sure these
- *     exact URLs are listed (trailing slash matters):
- *       http://localhost:3000/          (for testing)
- *       https://<your-deployed-domain>/  (for the live site)
- *  3. Emails are delivered free + unlimited via FormSubmit — no account or
- *     key needed. The FIRST-EVER submission sends an "activate" email to
- *     hackclubngp@gmail.com: open it, click activate once, done forever.
+ * Secrets live in `.env` (never committed — see `.env.example`):
+ *   VITE_DISCORD_CLIENT_ID   from Discord Developer Portal → OAuth2
+ *   VITE_DISCORD_WEBHOOK_URL full webhook URL from Server Settings → Integrations
+ *   VITE_INBOX_EMAIL         where join mails go
+ *
+ * In the Discord portal → OAuth2 → Redirects, list these exact URLs
+ * (trailing slash matters):
+ *   http://localhost:3000/            (for testing)
+ *   https://<your-deployed-domain>/    (for the live site)
+ *
+ * NOTE: Vite bakes VITE_* values into the public JS bundle, so `.env`
+ * keeps secrets out of the git repo — not out of the browser. Anyone
+ * opening the live site can still read the webhook URL from the code.
+ * If spam ever appears: regenerate the token in Discord and update `.env`.
+ * The real fix, when the club grows, is moving the webhook call server-side.
  *
  * HOW IT WORKS: popup → Discord authorize (identify + email scopes) →
  * back to the site with a code → PKCE token exchange (no secret needed,
@@ -20,26 +26,12 @@
  * to the worker URL and this module will use it instead.
  */
 
-export const DISCORD_CLIENT_ID = '1553697754235281558';
+export const DISCORD_CLIENT_ID = import.meta.env.VITE_DISCORD_CLIENT_ID ?? '';
+export const INBOX_EMAIL = import.meta.env.VITE_INBOX_EMAIL ?? '';
 export const TOKEN_EXCHANGE_URL = '';
 
-/**
- * New-member alerts go to Discord through this webhook (named "mails").
- * Posts an embed + pings the member with <@USERID>.
- *
- * ⚠️  READ THIS: this URL contains a secret token and it ships inside the
- * public website code — anyone who opens View Source can post to the
- * channel with it. That is the price of having zero backend. To stay safe:
- *  - Keep that channel's permissions tight (no @everyone pings by others).
- *  - If spam ever appears: Discord Server Settings → Integrations →
- *    "mails" webhook → regenerate/copy the new URL, paste it here, done.
- *  - Later, this same call can move into a 20-line server function and the
- *    URL can leave the frontend entirely.
- */
-export const DISCORD_WEBHOOK_URL =
-  'https://discord.com/api/webhooks/1553705059894694028/v_oWLdsSVKtkajmtLjxRk7srUgUlYeIE2-2221CrhmCvTVXU5ZFcWfaZYr7vATxRkepo';
-
-const INBOX_EMAIL = 'hackclubngp@gmail.com';
+/** New-member alerts go to Discord through the "mails" webhook: embed + <@USERID> ping. */
+export const DISCORD_WEBHOOK_URL = import.meta.env.VITE_DISCORD_WEBHOOK_URL ?? '';
 
 /** One join per browser: remembers a successful signup so it can't be repeated. */
 const MEMBER_KEY = 'hcn-member';
@@ -203,6 +195,7 @@ export async function loginWithDiscord(): Promise<DiscordUser> {
 
 /** Posts a new-member alert to Discord, pinging the member. Throws on failure. */
 export async function postToDiscord(user: DiscordUser): Promise<void> {
+  if (!DISCORD_WEBHOOK_URL.trim()) throw new Error('webhook-missing');
   const res = await fetch(DISCORD_WEBHOOK_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

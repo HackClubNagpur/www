@@ -29,6 +29,8 @@ Opens at http://localhost:3000. No API keys or `.env` needed.
 Almost everything lives in `src/data/clubData.ts` — events, projects,
 FAQs, perks, contact email. Edit that file to update the site.
 
-Join requests land in `hackclubngp@gmail.com` and ping our Discord.
+Join requests land in the inbox from `VITE_INBOX_EMAIL` and ping our Discord.
 Discord login needs the redirect URLs set in the Discord Developer
-Portal (see `src/auth/discord.ts`).
+Portal (see `src/auth/discord.ts`). Secrets live in `.env` (copy from
+`.env.example`) — keep in mind Vite bakes them into the public JS bundle,
+so `.env` hides them from the repo, not from site visitors.
