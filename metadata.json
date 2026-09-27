@@ -1,0 +1,6 @@
+{
+  "name": "Hack Club Nagpur",
+  "description": "Student-led community of high school hackers, makers, and curious teenagers in Nagpur, Maharashtra building games, hardware, and open source projects.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

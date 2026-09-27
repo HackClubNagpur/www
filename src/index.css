@@ -1,0 +1,274 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Type system — four families, each with one job.
+     hero     -> Archivo (variable width grotesque) for the hero wordmark only
+     display  -> Fraunces (variable serif) for big statements
+     sans     -> Plus Jakarta Sans for reading and UI
+     accent   -> Bricolage Grotesque for sub-headings, cards, buttons
+     mono     -> JetBrains Mono for labels, tags, numbers
+     hand     -> Caveat for handwritten asides only                     */
+  --font-hero: "Archivo", "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-flex: "Google Sans Flex", "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-pixel: "Press Start 2P", "JetBrains Mono", monospace;
+  --font-display: "Fraunces", "Plus Jakarta Sans", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-accent: "Bricolage Grotesque", "Plus Jakarta Sans", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-hand: "Caveat", "Segoe Script", cursive;
+
+  --color-hc-red: #EC3750;
+  --color-hc-orange: #FF8C37;
+  --color-hc-yellow: #F1E05A;
+  --color-hc-green: #33D6A6;
+  --color-hc-cyan: #338EDA;
+  --color-hc-purple: #A633D6;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Headings stop breaking mid-phrase; body copy avoids orphans. */
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* Display type sits tight and large; Fraunces' optical-size axis
+   (font-optical-sizing, on by default) handles the rest. */
+.font-display {
+  letter-spacing: -0.015em;
+  font-variation-settings: "SOFT" 0, "WONK" 0;
+}
+
+/* Full-screen join slides backdrop — dotted like HQ's deck. */
+.join-slides-bg {
+  background-color: #f4f4f6;
+  background-image: radial-gradient(rgba(18, 18, 23, 0.10) 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+}
+
+.dark .join-slides-bg {
+  background-color: #121217;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.09) 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+}
+
+/* Small mono labels: the site's one shouty voice, used sparingly. */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+
+/* Hack Club Flag hanging on top left - Bold & Iconic, pinned while scrolling */
+.hackclub-flag {
+  position: fixed;
+  top: 0;
+  left: 0.5rem;
+  z-index: 50;
+  width: 110px;
+  transform-origin: top left;
+  transition: transform 0.2s ease-in-out;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.18));
+}
+
+@media (min-width: 640px) {
+  .hackclub-flag {
+    width: 170px;
+    left: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hackclub-flag {
+    width: 205px;
+    left: 2rem;
+  }
+}
+
+.hackclub-flag:hover {
+  transform: rotate(-3deg) scale(1.03);
+}
+
+/* Cards - High contrast, crisp borders in both dark and light modes */
+.dark .hc-card {
+  background-color: #191923;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.25rem;
+  color: #F8FAFC;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.dark .hc-card:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.light .hc-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 1.25rem;
+  color: #0F172A;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.light .hc-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+/* Hack Club Pill Buttons - clean, authentic feel */
+.dark .hc-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.55rem 1.25rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  color: #F8FAFC;
+  background-color: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.dark .hc-pill-btn:hover {
+  border-color: #EC3750;
+  background-color: #EC3750;
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+.dark .hc-pill-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.light .hc-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.55rem 1.25rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1.5px solid #CBD5E1;
+  color: #0F172A;
+  background-color: #F8FAFC;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.light .hc-pill-btn:hover {
+  border-color: #EC3750;
+  background-color: #EC3750;
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+.light .hc-pill-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Main Red CTA Button (JOIN US / RSVP) - Clean, tactile, NO artificial glow */
+.hc-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #EC3750;
+  color: #FFFFFF;
+  font-family: var(--font-accent);
+  font-weight: 800;
+  border-radius: 9999px;
+  padding: 0.85rem 2.25rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: background-color 0.12s ease, transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.hc-cta-btn:hover {
+  background-color: #D9253F;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.hc-cta-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Secondary Button */
+.dark .hc-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  color: #F8FAFC;
+  font-family: var(--font-accent);
+  font-weight: 700;
+  border-radius: 9999px;
+  padding: 0.8rem 1.8rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.dark .hc-secondary-btn:hover {
+  border-color: #EC3750;
+  color: #EC3750;
+  background-color: rgba(236, 55, 80, 0.08);
+}
+
+.light .hc-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #FFFFFF;
+  color: #0F172A;
+  font-family: var(--font-accent);
+  font-weight: 700;
+  border-radius: 9999px;
+  padding: 0.8rem 1.8rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  border: 2px solid #CBD5E1;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.15s ease;
+}
+
+.light .hc-secondary-btn:hover {
+  border-color: #EC3750;
+  color: #EC3750;
+  background-color: rgba(236, 55, 80, 0.05);
+}
