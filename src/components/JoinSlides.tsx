@@ -12,7 +12,9 @@ import {
 
 interface JoinSlidesProps {
   onOpenJoin: () => void;
-  onExit: () => void;
+  onStart?: () => void;
+  autoStart?: boolean;
+  onExit?: () => void;
 }
 
 type Status =
@@ -163,8 +165,9 @@ const HQ_PROJECTS: {
   },
 ];
 
-export const JoinSlides: React.FC<JoinSlidesProps> = ({ onOpenJoin, onExit }) => {
+export const JoinSlides: React.FC<JoinSlidesProps> = ({ onOpenJoin, onStart, autoStart = false, onExit }) => {
   const [step, setStep] = useState(0);
+  const [started, setStarted] = useState(autoStart);
   const [ageOk, setAgeOk] = useState(false);
   const [cocOk, setCocOk] = useState(false);
   const [status, setStatus] = useState<Status>({ kind: 'idle' });
@@ -219,15 +222,45 @@ export const JoinSlides: React.FC<JoinSlidesProps> = ({ onOpenJoin, onExit }) =>
 
   return (
     <section className="join-slides-bg relative overflow-hidden">
-      {/* Exit — the only chrome in here */}
-      <button
-        onClick={onExit}
-        aria-label="Back to site"
-        className="absolute top-5 right-5 z-30 w-10 h-10 rounded-full border border-slate-300 dark:border-white/15 text-slate-500 dark:text-slate-400 hover:text-[#EC3750] hover:border-[#EC3750] flex items-center justify-center transition-colors cursor-pointer"
-      >
-        <Icon glyph="view-close" size={18} />
-      </button>
-
+      {onExit && (
+        <button
+          onClick={onExit}
+          aria-label="Back to join"
+          className="absolute top-5 right-5 z-30 w-10 h-10 rounded-full border border-slate-300 dark:border-white/15 text-slate-500 dark:text-slate-400 hover:text-[#EC3750] hover:border-[#EC3750] flex items-center justify-center transition-colors cursor-pointer"
+        >
+          <Icon glyph="view-close" size={18} />
+        </button>
+      )}
+      {!started ? (
+        <div className="min-h-[calc(100svh-12rem)] flex flex-col items-center justify-center text-center px-4 sm:px-6 py-16 sm:py-20">
+          <div className="w-full max-w-3xl mx-auto">
+            <h1 className="font-accent font-semibold text-5xl sm:text-6xl lg:text-7xl leading-[1.02] text-slate-900 dark:text-white mb-6">
+              Join the club.
+            </h1>
+            <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl mx-auto mb-8">
+              Five quick screens — what the club is, where we hang out, and
+              how login works. About a minute.
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
+              {['100% free forever', 'Ages 13–18', 'No experience needed', 'Nagpur meetups'].map((chip) => (
+                <span
+                  key={chip}
+                  className="font-mono text-[11px] sm:text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-white/15 bg-white/60 dark:bg-white/5 text-slate-600 dark:text-slate-300"
+                >
+                  {chip}
+                </span>
+              ))}
+            </div>
+            <button
+              onClick={() => (onStart ? onStart() : setStarted(true))}
+              className="hc-cta-btn text-base py-4 px-10"
+            >
+              <span>Start</span>
+              <Icon glyph="right-caret" size={18} />
+            </button>
+          </div>
+        </div>
+      ) : (
       <div className="min-h-[calc(100svh-12rem)] flex flex-col items-center justify-center text-center px-4 sm:px-6 py-16 sm:py-20">
         <div className="w-full max-w-3xl mx-auto">
 
@@ -533,9 +566,10 @@ export const JoinSlides: React.FC<JoinSlidesProps> = ({ onOpenJoin, onExit }) =>
           <div className="mt-6 h-6" aria-hidden="true" />
         </div>
       </div>
+      )}
 
       {/* Fixed back arrow — mirrors the next arrow */}
-      {step > 0 && (
+      {started && step > 0 && (
         <button
           onClick={() => setStep(step - 1)}
           aria-label="Previous slide"
@@ -548,7 +582,7 @@ export const JoinSlides: React.FC<JoinSlidesProps> = ({ onOpenJoin, onExit }) =>
       )}
 
       {/* Fixed next arrow, HQ style */}
-      {!last && (
+      {started && !last && (
         <button
           onClick={() => setStep(Math.min(total - 1, step + 1))}
           aria-label="Next slide"

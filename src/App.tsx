@@ -40,7 +40,7 @@ export default function App() {
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '').toLowerCase();
-      const validPages: PageId[] = ['home', 'events', 'projects', 'ysws', 'manifesto', 'activities', 'join', 'team'];
+      const validPages: PageId[] = ['home', 'events', 'projects', 'ysws', 'manifesto', 'activities', 'join', 'team', 'slides'];
       if (validPages.includes(hash as PageId)) {
         setCurrentPage(hash as PageId);
       }
@@ -73,7 +73,7 @@ export default function App() {
     setIsDarkMode(!isDarkMode);
   };
 
-  const isImmersive = currentPage === 'join';
+  const hideChrome = currentPage === 'slides';
 
   return (
     <div
@@ -81,8 +81,8 @@ export default function App() {
         isDarkMode ? 'dark bg-[#121217] text-[#F5F5F7]' : 'light bg-[#F9FAFC] text-[#0F172A]'
       }`}
     >
-      {/* Top Bar — hidden on the immersive join slides, like HQ's deck */}
-      {!isImmersive && (
+      {/* Top Bar with Hack Club Hanging Flag, Navigation, and Theme Toggle */}
+      {!hideChrome && (
         <Navbar
           currentPage={currentPage}
           onNavigate={handleNavigate}
@@ -178,7 +178,14 @@ export default function App() {
         {/* PAGE 7: JOIN US */}
         {currentPage === 'join' && (
           <div className="animate-in fade-in duration-200">
-            <JoinSlides onOpenJoin={() => handleOpenJoin()} onExit={() => handleNavigate('home')} />
+            <JoinSlides onOpenJoin={() => handleOpenJoin()} onStart={() => handleNavigate('slides')} />
+          </div>
+        )}
+
+        {/* PAGE 9: SLIDES */}
+        {currentPage === 'slides' && (
+          <div className="animate-in fade-in duration-200">
+            <JoinSlides onOpenJoin={() => handleOpenJoin()} autoStart onExit={() => handleNavigate('join')} />
           </div>
         )}
 
@@ -190,8 +197,8 @@ export default function App() {
         )}
       </main>
 
-      {/* Footer — hidden on the immersive join slides */}
-      {!isImmersive && <Footer onNavigate={handleNavigate} />}
+      {/* Footer */}
+      {!hideChrome && <Footer onNavigate={handleNavigate} />}
 
       {/* Join request modal */}
       <JoinModal

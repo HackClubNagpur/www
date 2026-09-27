@@ -1,4 +1,4 @@
-export type PageId = 'home' | 'events' | 'projects' | 'ysws' | 'manifesto' | 'activities' | 'join' | 'team';
+export type PageId = 'home' | 'events' | 'projects' | 'ysws' | 'manifesto' | 'activities' | 'join' | 'team' | 'slides';
 
 export interface Project {
   id: string;
