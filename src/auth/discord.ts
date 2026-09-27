@@ -28,6 +28,9 @@
 
 export const DISCORD_CLIENT_ID = import.meta.env.VITE_DISCORD_CLIENT_ID ?? '';
 export const INBOX_EMAIL = import.meta.env.VITE_INBOX_EMAIL ?? '';
+
+/** Discord user ID that gets pinged on every new join (not a secret). */
+export const ADMIN_PING_ID = import.meta.env.VITE_ADMIN_PING_ID ?? '1269984634771607616';
 export const TOKEN_EXCHANGE_URL = '';
 
 /** New-member alerts go to Discord through the "mails" webhook: embed + <@USERID> ping. */
@@ -200,7 +203,7 @@ export async function postToDiscord(user: DiscordUser): Promise<void> {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      content: `New member joined! <@${user.id}>`,
+      content: `<@${ADMIN_PING_ID}> New member alert — <@${user.id}> (@${user.username}) just joined the club!`,
       allowed_mentions: { parse: ['users'] },
       embeds: [
         {
