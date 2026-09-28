@@ -1,23 +1,5 @@
 export type PageId = 'home' | 'events' | 'projects' | 'ysws' | 'manifesto' | 'activities' | 'join' | 'team' | 'slides';
 
-export interface Project {
-  id: string;
-  title: string;
-  creator: string;
-  creatorAge: number;
-  school: string;
-  category: 'hardware' | 'web' | 'games' | 'nagpur-utility';
-  status?: 'coming_soon' | 'active';
-  description: string;
-  longDescription: string;
-  image: string;
-  tags: string[];
-  githubUrl?: string;
-  demoUrl?: string;
-  partsUsed?: string[];
-  linesOfCode?: number;
-}
-
 export interface ClubEvent {
   id: string;
   title: string;
@@ -40,18 +22,4 @@ export interface FaqItem {
   question: string;
   answer: string;
   category: 'getting-started' | 'parents' | 'logistics';
-}
-
-export interface YswsProgram {
-  id: string;
-  name: string;
-  tagline: string;
-  description: string;
-  url: string;
-  category: string;
-  reward: string;
-  status: 'coming_soon' | 'active';
-  image?: string;
-  glyph: any;
-  accentColor: string;
 }

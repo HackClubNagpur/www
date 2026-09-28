@@ -46,6 +46,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
     'text-[11px] font-mono font-bold uppercase tracking-[0.18em] text-slate-500 mb-4';
   const linkCls =
     'text-sm text-slate-300 hover:text-white transition-colors cursor-pointer';
+  const commitSha = typeof __COMMIT_SHA__ === 'string' ? __COMMIT_SHA__ : '';
 
   return (
     <footer className="mt-16 border-t border-white/10 bg-black text-slate-400 py-12 sm:py-16 px-4 sm:px-6">
@@ -140,13 +141,26 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             © 2026 Hack Club Nagpur · A chapter of Hack Club, a 501(c)(3)
             nonprofit · 21.1458° N, 79.0882° E
           </span>
-          <button
-            onClick={scrollToTop}
-            className="text-slate-300 hover:text-white flex items-center gap-1 cursor-pointer transition-colors shrink-0"
-          >
-            <span>Back to top</span>
-            <Icon glyph="up-caret" size={14} />
-          </button>
+          <div className="flex items-center gap-4 shrink-0">
+            {commitSha && (
+              <a
+                href={`https://github.com/HackClubNagpur/www/commit/${commitSha}`}
+                target="_blank"
+                rel="noreferrer"
+                className="font-mono text-slate-500 hover:text-white transition-colors"
+                title="Latest commit on GitHub"
+              >
+                --o-- {commitSha}
+              </a>
+            )}
+            <button
+              onClick={scrollToTop}
+              className="text-slate-300 hover:text-white flex items-center gap-1 cursor-pointer transition-colors shrink-0"
+            >
+              <span>Back to top</span>
+              <Icon glyph="up-caret" size={14} />
+            </button>
+          </div>
         </div>
 
       </div>
