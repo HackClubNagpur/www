@@ -58,7 +58,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           {/* Brand block */}
           <div className="col-span-2 sm:col-span-3 lg:col-span-1 mb-2 lg:mb-0">
             <div className="flex items-center gap-2.5 mb-3">
-              <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-[#EC3750] shrink-0 bg-[#EC3750]/10 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg overflow-hidden border-2 border-[#EC3750] shrink-0 bg-[#EC3750]/10 flex items-center justify-center">
                 <img src="/hc.png" alt="Hack Club Nagpur Logo" className="w-full h-full object-cover" />
               </div>
               <span className="font-accent font-semibold text-lg text-white">

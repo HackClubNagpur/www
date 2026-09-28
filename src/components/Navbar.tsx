@@ -31,19 +31,18 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <>
       {/* Authentic Hack Club Hanging Flag from top-left */}
-      <a
-        href="https://hackclub.com"
-        target="_blank"
-        rel="noreferrer"
-        className="hackclub-flag"
-        title="Hack Club - A global network of high school makers"
+      <button
+        onClick={() => onNavigate('home')}
+        className="hackclub-flag bg-transparent border-none cursor-pointer p-0"
+        title="Hack Club Nagpur — home"
+        aria-label="Go to home page"
       >
         <img
           src="https://assets.hackclub.com/flag-orpheus-top.svg"
           alt="Hack Club Flag"
           className="w-full"
         />
-      </a>
+      </button>
 
       {/* Full-Width Header Bar exactly like hackclub.com */}
       <header className="sticky top-0 z-40 w-full bg-white/95 dark:bg-[#121217]/95 backdrop-blur-md border-b border-slate-200/80 dark:border-white/10 transition-colors">

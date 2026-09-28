@@ -35,15 +35,13 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onNavigate }) 
         </h2>
 
         <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-md mx-auto mb-6">
-          Nagpur teens are mid-build right now — a pocket arcade console, a
-          metro timing bot, a breakfast-rush browser game, and plenty of
-          websites in between. They&rsquo;ll go up here as soon as something
-          starts working.
+          Nagpur teens haven&rsquo;t shipped anything yet — whatever gets
+          built first goes up here. A bot, a game, a blinking LED, a
+          website. First build night decides.
         </p>
 
         <p className="font-mono text-[11px] tracking-wider text-slate-500 dark:text-slate-400 mb-8">
-          ON THE BENCH &nbsp;&middot;&nbsp; PICO CONSOLE &nbsp;&middot;&nbsp;
-          TARRI POHA GAME &nbsp;&middot;&nbsp; METRO BOT
+          NOTHING SHIPPED YET &nbsp;&middot;&nbsp; FIRST BUILD NIGHT DECIDES
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">

@@ -106,13 +106,13 @@ export default function App() {
                     First meetup &middot; date to be confirmed
                   </span>
                   <h3 className="font-accent text-xl sm:text-2xl font-medium tracking-tight text-slate-900 dark:text-white">
-                    Build night #01: wires and sensors
+                    Build night #01: websites, games & blinking lights
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 mt-2 max-w-xl leading-relaxed">
-                    We&rsquo;re starting with hardware. Twenty-odd ESP32 boards,
-                    a shelf of sensors, and mentors on hand from two
-                    o&rsquo;clock at Shankar Nagar. Bring a laptop, or bring
-                    nothing at all.
+                    We&rsquo;re kicking off with a bit of everything: ship a
+                    tiny website, build a browser game, or blink your first
+                    LED. Mentors on hand from two o&rsquo;clock at Shankar
+                    Nagar. Bring a laptop, or bring nothing at all.
                   </p>
                 </div>
                 <div className="flex flex-wrap items-center gap-3 shrink-0">

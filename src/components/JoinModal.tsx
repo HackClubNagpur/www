@@ -87,7 +87,7 @@ export const JoinModal: React.FC<JoinModalProps> = ({
         {/* Modal Top Bar */}
         <div className="flex items-center justify-between p-5 border-b border-slate-200 dark:border-white/10">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full overflow-hidden border border-[#EC3750] shrink-0">
+            <div className="w-6 h-6 rounded-md overflow-hidden border border-[#EC3750] shrink-0">
               <img src="/hc.png" alt="Logo" className="w-full h-full object-cover" />
             </div>
             <span className="font-accent font-medium text-slate-900 dark:text-white text-sm">
